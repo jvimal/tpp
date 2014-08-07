@@ -1,0 +1,148 @@
+#+STYLE: <style> * { font-family: sans-serif; } body  { font-size: 1.2em; width: 800px; margin: 0 auto; } </style>
+#+STYLE: <style> p { text-align: left; line-height: 1.2em; } li {padding-bottom: 0.2em;}</style>
+#+STYLE: <style> pre, pre span { font-family: monospace; } </style>
+#+STYLE: <style> code { font-family: monospace; font-size: 10pt; background-color: #EDEDED; padding: 2px;} </style>
+#+STYLE: <style> th,td { border: 1px solid #ddd } </style>
+#+STYLE: <style> div.figure { align: center; } </style>
+#+STYLE: <style> h2 { border-bottom: 1px solid #ccc; color: #900; padding-top: 1em; } body {background-color: #F8F4E7; color: #552800;}
+#+STYLE: h3, h4, h5, h6 {border-bottom: 1px solid #ccc; color: #0B108C; }</style>
+#+BEGIN_HTML
+<script type="text/javascript">
+/*
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38677203-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[ 0 ]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+</script>
+#+END_HTML
+#+BEGIN_HTML
+<meta name="google-site-verification" content="XNGh0oE3TtdednJ1g-ukOSKZ78wu59yC1sqeQvkf69k" />
+#+END_HTML
+#+OPTIONS: _:nil
+#+EMAIL: j.vimal@gmail.com
+
+#+TITLE: Tiny Packet Programs
+#+AUTHOR: Vimalkumar
+
+* What is a Tiny Packet Program?
+A *Tiny Packet Program* is a packet with an embedded program that can
+read and (optionally) write into switch memory using values stored
+within the packet.  It's a highly restrictive, yet useful formulation
+of the `Active Networks' vision.
+
+The key idea is to empower end-hosts with _explicit_ network
+information to evolve data plane functions in software.
+
+#+CAPTION: Figure 1: A TPP is just another regular packet encapsulated in a TPP header.  The TPP header contains a few instructions that primarily LOAD from and STORE into switch memory.
+#+NAME: fig:tpp-format
+[[./packet-format.png]]
+
+For now, TPPs are only meant to be used in private networks, and not
+across the Internet.
+
+#+CAPTION: Figure 2: A visualisation of how end-hosts can send TPPs to collect statistics from the network to get a detailed breakdown of queueing latencies at each and every hop.
+#+NAME: fig:tpp-example
+[[./tpp-example.png]]
+
+
+** Why?
+Today, there are several network `functions' needed to make any
+network work.  These network functions can be broadly divided into
+control and data plane functions on the basis of the timescales at
+which they operate.  Control plane functions typically operate at
+seconds to minutes (e.g., routing, traffic engineering, etc.), whereas
+data plane functions operate at packet and round-trip timescales
+(e.g., congestion control).
+
+With SDN, the path to introducing new control plane functions is
+conceptually clear: Write new software running on commodity servers,
+controlling commodity switches through an open interface such as
+OpenFlow.
+
+For new data plane functions that typically need hardware support for
+performance reasons, the path is less clear.  You are stuck with
+whatever your vendor gives you.  Moreover, for tasks such as
+congestion control for which there is no _one_ right answer, what do
+you do even if you own an ASIC team?
+
+We think TPPs strike a delicate balance between what is possible in
+hardware, across vendors, across device characteristics, while being
+sufficiently powerful to break the impasse in introducing new data
+plane tasks.
+
+** What does it help you do?
+
+In the paper, we show how you can implement the following tasks simply
+by having new software at the end-hosts sending specially crafted
+TPPs:
+
+- *Congestion control*: Rate Control Protocol (max-min fair version),
+  Rate Control Protocol (proportional fair version).
+
+- *CONGA*: A distributed network traffic load balancing mechanism
+  available in Cisco's next-generation ASICs.  If you have a
+  TPP-enabled network, you can get benefits similar to CONGA just by
+  using TPPs.
+
+- *NetSight*: A platform for detailed diagnosis of packet provenance
+  in a large network.  You can learn more about NetSight in our NSDI
+  2014 paper ([[https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-handigol.pdf][pdf]]).
+
+- *Performance diagnosis*: Identifying links that have high queueing
+  occupancy for a short period of time (also known `micro-bursts').
+
+- *High speed, low-overhead monitoring*: A detailed breakdown of
+  per-link latency for any specific packet.
+
+We think TPPs are a good fit for a number of other data plane
+functions below, but we haven't had a chance to implement them yet:
+
+- *Other congestion control schemes*: [[http://www.isi.edu/nsnam/ns/doc/node238.html][XCP]], [[http://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p135.pdf][FCP]], [[https://www.ideals.illinois.edu/handle/2142/35905][QCP]], [[http://conferences.sigcomm.org/hotnets/2013/papers/hotnets-final92.pdf][MCP]], or perhaps
+  feeding richer signals into [[http://web.mit.edu/remy/][Remy]].
+
+- *Fast network updates*: If TPPs take half a round-trip time to
+  update network state (once the new state is computed, of course),
+  can we mitigate the effect of transient network state?
+
+- *DeTail*: Reducing tail latency for flows by quickly switching to
+  alternate least-congested paths ([[http://www.eecs.berkeley.edu/~dzats/detail.pdf][pdf]]).
+
+- *Packet drop location*: Figuring out exactly where a packet was
+  dropped, either due to congestion, or due to corrupted bits.
+
+If you have new ideas, please let me know!
+
+* People
+- Vimalkumar Jeyakumar
+- Mohammad Alizadeh (Cisco Systems)
+- Changhoon Kim (Barefoot Networks)
+- Yilong Geng
+- David Mazières
+
+* Papers and Presentations
+- *Tiny Packet Programs for low-latency network control and monitoring
+  (HotNets'13)*: A position paper articulating the basic ideas behind
+  TPPs.
+
+  - Paper: http://www.scs.stanford.edu/~jvimal/tpp-hotnets13.pdf.
+  - Talk: https://www.dropbox.com/s/zhh9ljih32owzcn/HotNets.pptx
+
+- *Millions of Little Minions: Using Packets for Low Latency Network
+  Programming and Visibility (SIGCOMM'14)*: A longer version of the
+  paper with a full system design and evaluation.
+
+  - Paper: http://www.scs.stanford.edu/~jvimal/tpp-sigcomm14.pdf.
+  - Talk: (coming soon!)
+
+- An extended version of the SIGCOMM paper:
+  http://arxiv.org/abs/1405.7143.
+
+* Code
+
+Coming soon!

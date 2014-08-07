@@ -1,4 +1,336 @@
-Coming soon!  
-<br/>
-Meanwhile, here is the extended paper: <a href="http://arxiv.org/abs/1405.7143">arxiv.org/abs/1405.7143</a>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>Tiny Packet Programs</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2014-08-07 14:03:56 PDT"/>
+<meta name="author" content="Vimalkumar"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> * { font-family: sans-serif; } body  { font-size: 1.2em; width: 800px; margin: 0 auto; } </style>
+<style> p { text-align: left; line-height: 1.2em; } li {padding-bottom: 0.2em;}</style>
+<style> pre, pre span { font-family: monospace; } </style>
+<style> code { font-family: monospace; font-size: 10pt; background-color: #EDEDED; padding: 2px;} </style>
+<style> th,td { border: 1px solid #ddd } </style>
+<style> div.figure { align: center; } </style>
+<style> h2 { border-bottom: 1px solid #ccc; color: #900; padding-top: 1em; } body {background-color: #F8F4E7; color: #552800;}
+h3, h4, h5, h6 {border-bottom: 1px solid #ccc; color: #0B108C; }</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
 
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">Tiny Packet Programs</h1>
+
+<script type="text/javascript">
+/*
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38677203-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[ 0 ]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+</script>
+<meta name="google-site-verification" content="XNGh0oE3TtdednJ1g-ukOSKZ78wu59yC1sqeQvkf69k" />
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 What is a Tiny Packet Program? </a>
+<ul>
+<li><a href="#sec-1_1">1.1 Why? </a></li>
+<li><a href="#sec-1_2">1.2 What does it help you do? </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 People </a></li>
+<li><a href="#sec-3">3 Papers and Presentations </a></li>
+<li><a href="#sec-4">4 Code </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> What is a Tiny Packet Program? </h2>
+<div class="outline-text-2" id="text-1">
+
+<p>A <b>Tiny Packet Program</b> is a packet with an embedded program that can
+read and (optionally) write into switch memory using values stored
+within the packet.  It's a highly restrictive, yet useful formulation
+of the `Active Networks' vision.
+</p>
+<p>
+The key idea is to empower end-hosts with <span style="text-decoration:underline;">explicit</span> network
+information to evolve data plane functions in software.
+</p>
+
+<div class="figure">
+<p><img src="./packet-format.png"  alt="./packet-format.png" /></p>
+<p>Figure 1: A TPP is just another regular packet encapsulated in a TPP header.  The TPP header contains a few instructions that primarily LOAD from and STORE into switch memory.</p>
+</div>
+
+<p>
+For now, TPPs are only meant to be used in private networks, and not
+across the Internet.
+</p>
+
+<div class="figure">
+<p><img src="./tpp-example.png"  alt="./tpp-example.png" /></p>
+<p>Figure 2: A visualisation of how end-hosts can send TPPs to collect statistics from the network to get a detailed breakdown of queueing latencies at each and every hop.</p>
+</div>
+
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> Why? </h3>
+<div class="outline-text-3" id="text-1_1">
+
+<p>Today, there are several network `functions' needed to make any
+network work.  These network functions can be broadly divided into
+control and data plane functions on the basis of the timescales at
+which they operate.  Control plane functions typically operate at
+seconds to minutes (e.g., routing, traffic engineering, etc.), whereas
+data plane functions operate at packet and round-trip timescales
+(e.g., congestion control).
+</p>
+<p>
+With SDN, the path to introducing new control plane functions is
+conceptually clear: Write new software running on commodity servers,
+controlling commodity switches through an open interface such as
+OpenFlow.
+</p>
+<p>
+For new data plane functions that typically need hardware support for
+performance reasons, the path is less clear.  You are stuck with
+whatever your vendor gives you.  Moreover, for tasks such as
+congestion control for which there is no <span style="text-decoration:underline;">one</span> right answer, what do
+you do even if you own an ASIC team?
+</p>
+<p>
+We think TPPs strike a delicate balance between what is possible in
+hardware, across vendors, across device characteristics, while being
+sufficiently powerful to break the impasse in introducing new data
+plane tasks.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><span class="section-number-3">1.2</span> What does it help you do? </h3>
+<div class="outline-text-3" id="text-1_2">
+
+
+<p>
+In the paper, we show how you can implement the following tasks simply
+by having new software at the end-hosts sending specially crafted
+TPPs:
+</p>
+<ul>
+<li><b>Congestion control</b>: Rate Control Protocol (max-min fair version),
+  Rate Control Protocol (proportional fair version).
+
+</li>
+<li><b>CONGA</b>: A distributed network traffic load balancing mechanism
+  available in Cisco's next-generation ASICs.  If you have a
+  TPP-enabled network, you can get benefits similar to CONGA just by
+  using TPPs.
+
+</li>
+<li><b>NetSight</b>: A platform for detailed diagnosis of packet provenance
+  in a large network.  You can learn more about NetSight in our NSDI
+  2014 paper (<a href="https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-handigol.pdf">pdf</a>).
+
+</li>
+<li><b>Performance diagnosis</b>: Identifying links that have high queueing
+  occupancy for a short period of time (also known `micro-bursts').
+
+</li>
+<li><b>High speed, low-overhead monitoring</b>: A detailed breakdown of
+  per-link latency for any specific packet.
+</li>
+</ul>
+
+<p>
+We think TPPs are a good fit for a number of other data plane
+functions below, but we haven't had a chance to implement them yet:
+</p>
+<ul>
+<li><b>Other congestion control schemes</b>: <a href="http://www.isi.edu/nsnam/ns/doc/node238.html">XCP</a>, <a href="http://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p135.pdf">FCP</a>, <a href="https://www.ideals.illinois.edu/handle/2142/35905">QCP</a>, <a href="http://conferences.sigcomm.org/hotnets/2013/papers/hotnets-final92.pdf">MCP</a>, or perhaps
+  feeding richer signals into <a href="http://web.mit.edu/remy/">Remy</a>.
+
+</li>
+<li><b>Fast network updates</b>: If TPPs take half a round-trip time to
+  update network state (once the new state is computed, of course),
+  can we mitigate the effect of transient network state?
+
+</li>
+<li><b>DeTail</b>: Reducing tail latency for flows by quickly switching to
+  alternate least-congested paths (<a href="http://www.eecs.berkeley.edu/~dzats/detail.pdf">pdf</a>).
+
+</li>
+<li><b>Packet drop location</b>: Figuring out exactly where a packet was
+  dropped, either due to congestion, or due to corrupted bits.
+</li>
+</ul>
+
+<p>
+If you have new ideas, please let me know!
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> People </h2>
+<div class="outline-text-2" id="text-2">
+
+<ul>
+<li>Vimalkumar Jeyakumar
+</li>
+<li>Mohammad Alizadeh (Cisco Systems)
+</li>
+<li>Changhoon Kim (Barefoot Networks)
+</li>
+<li>Yilong Geng
+</li>
+<li>David Mazières
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Papers and Presentations </h2>
+<div class="outline-text-2" id="text-3">
+
+<ul>
+<li><b>Tiny Packet Programs for low-latency network control and monitoring   (HotNets'13)</b>: A position paper articulating the basic ideas behind
+  TPPs.
+
+<ul>
+<li>Paper: <a href="http://www.scs.stanford.edu/~jvimal/tpp-hotnets13.pdf">http://www.scs.stanford.edu/~jvimal/tpp-hotnets13.pdf</a>.
+</li>
+<li>Talk: <a href="https://www.dropbox.com/s/zhh9ljih32owzcn/HotNets.pptx">https://www.dropbox.com/s/zhh9ljih32owzcn/HotNets.pptx</a>
+
+</li>
+</ul>
+</li>
+<li><b>Millions of Little Minions: Using Packets for Low Latency Network   Programming and Visibility (SIGCOMM'14)</b>: A longer version of the
+  paper with a full system design and evaluation.
+
+<ul>
+<li>Paper: <a href="http://www.scs.stanford.edu/~jvimal/tpp-sigcomm14.pdf">http://www.scs.stanford.edu/~jvimal/tpp-sigcomm14.pdf</a>.
+</li>
+<li>Talk: (coming soon!)
+
+</li>
+</ul>
+</li>
+<li>An extended version of the SIGCOMM paper:
+  <a href="http://arxiv.org/abs/1405.7143">http://arxiv.org/abs/1405.7143</a>.
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Code </h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+Coming soon!
+</p></div>
+</div>
+<div id="postamble">
+<p class="author">Author: Vimalkumar (<a href="mailto:j.vimal@gmail.com">j.vimal@gmail.com</a>)</p>
+<p class="date">Date: 2014-08-07 14:03:56 PDT</p>
+<p class="creator">Generated by Org version 7.4 with Emacs version 24</p>
+<p class="xhtml-validation"><a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a></p>
+</div>
+</div>
+</body>
+</html>
