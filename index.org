@@ -34,7 +34,7 @@
 A *Tiny Packet Program* is a packet with an embedded program that can
 read and (optionally) write into switch memory using values stored
 within the packet.  It's a highly restrictive, yet useful formulation
-of the `Active Networks' vision.
+of the `[[http://en.wikipedia.org/wiki/Active_networking][Active Networks]]' vision.
 
 The key idea is to empower end-hosts with _explicit_ network
 information to evolve data plane functions in software.
