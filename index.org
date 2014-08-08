@@ -103,8 +103,8 @@ TPPs:
 We think TPPs are a good fit for a number of other data plane
 functions below, but we haven't had a chance to implement them yet:
 
-- *Other congestion control schemes*: [[http://www.isi.edu/nsnam/ns/doc/node238.html][XCP]], [[http://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p135.pdf][FCP]], [[https://www.ideals.illinois.edu/handle/2142/35905][QCP]], [[http://conferences.sigcomm.org/hotnets/2013/papers/hotnets-final92.pdf][MCP]], or perhaps
-  feeding richer signals into [[http://web.mit.edu/remy/][Remy]].
+- *Other congestion control schemes*: [[http://www.isi.edu/nsnam/ns/doc/node238.html][XCP]], [[http://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p135.pdf][FCP]], [[https://www.ideals.illinois.edu/handle/2142/35905][QCP]], [[http://conferences.sigcomm.org/hotnets/2013/papers/hotnets-final92.pdf][MCP]], [[jvimal.github.io/eyeq][EyeQ]], or
+  perhaps feeding richer signals into [[http://web.mit.edu/remy/][Remy]].
 
 - *Fast network updates*: If TPPs take half a round-trip time to
   update network state (once the new state is computed, of course),
@@ -115,6 +115,14 @@ functions below, but we haven't had a chance to implement them yet:
 
 - *Packet drop location*: Figuring out exactly where a packet was
   dropped, either due to congestion, or due to corrupted bits.
+
+- *Dynamic flow prioritisation*: Today, flows are prioritised into
+  bins statically based on headers.  With TPPs, one can collect finer
+  statistics such as link utilisation, flow size distribution (on a
+  per-link basis) to dynamically set flow prioritisation thresholds on
+  a per-link basis.  With a low-latency interface, these
+  configurations could potentially be updated quickly in response to
+  traffic changes.
 
 If you have new ideas, please let me know!
 
