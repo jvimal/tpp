@@ -8,7 +8,6 @@
 #+STYLE: h3, h4, h5, h6 {border-bottom: 1px solid #ccc; color: #0B108C; }</style>
 #+BEGIN_HTML
 <script type="text/javascript">
-/*
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-38677203-1']);
   _gaq.push(['_trackPageview']);
@@ -18,7 +17,6 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[ 0 ]; s.parentNode.insertBefore(ga, s);
   })();
-*/
 </script>
 #+END_HTML
 #+BEGIN_HTML
@@ -37,14 +35,13 @@ within the packet.  It's a highly restrictive, yet useful formulation
 of the `[[http://en.wikipedia.org/wiki/Active_networking][Active Networks]]' vision.
 
 The key idea is to empower end-hosts with _explicit_ network
-information to evolve data plane functions in software.
+information to evolve data plane functions in software.  For now, TPPs
+are only meant to be used in private networks, and not across the
+Internet.
 
 #+CAPTION: Figure 1: A TPP is just another regular packet encapsulated in a TPP header.  The TPP header contains a few instructions that primarily LOAD from and STORE into switch memory.
 #+NAME: fig:tpp-format
 [[./packet-format.png]]
-
-For now, TPPs are only meant to be used in private networks, and not
-across the Internet.
 
 #+CAPTION: Figure 2: A visualisation of how end-hosts can send TPPs to collect statistics from the network to get a detailed breakdown of queueing latencies at each and every hop.
 #+NAME: fig:tpp-example
