@@ -123,6 +123,26 @@ functions below, but we haven't had a chance to implement them yet:
 
 If you have new ideas, please let me know!
 
+** What can't you do?
+
+Despite the benefits, the TPP is not a panacea.  You cannot do the
+following tasks using TPPs, although there might be ways you can get
+reasonably close to achieving similar functionality.
+
+- *Per-packet scheduling*: TPP does not affect packet scheduling at a
+  per-packet level, so you cannot implement say deficit round robin.
+
+- *Event-driven notifications*: The TPP specification doesn't enable
+  notifications whenever the network changes its state.  For instance,
+  you can't get notifications and take action when a switch updates
+  its forwarding entry in hardware.  Alternatively, if your goal is to
+  take real-time actions on changes to network state, you can simply
+  poll the switch state.
+
+- *Define new header schemes*: You can't use TPPs to tell the switch
+  how to interpret new header formats (say IPv7).  This paper might be
+  a better fit for that task: [[http://dl.acm.org/citation.cfm?id=2486011][forwarding metamorphosis]].
+
 * People
 - Vimalkumar Jeyakumar
 - Mohammad Alizadeh (Cisco Systems)
